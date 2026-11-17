@@ -1,6 +1,6 @@
 # Mô hình hóa biến động ngẫu nhiên của cổ phiếu Vingroup (VIC) bằng Monte Carlo
 
-> Đề tài môn Quá trình ngẫu nhiên. Bài tập học thuật, **không phải khuyến nghị đầu tư**.
+> Đề tài môn Mô Phỏng Toán. Bài tập học thuật, **không phải khuyến nghị đầu tư**.
 
 ---
 
