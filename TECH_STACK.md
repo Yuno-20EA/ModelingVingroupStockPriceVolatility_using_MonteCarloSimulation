@@ -21,8 +21,8 @@ Phiên bản đã chạy thử: NumPy 2.5.4, pandas 3.0.6, SciPy 1.18.1, Matplot
 
 | Công cụ | Dùng để |
 |---|---|
-| Claude,Gemini,Antigrativy,Ollama | Mỗi Agent đều có 1 nhiệm vụ riêng hỗ trợ viết, rà soát và tái cấu trúc code; soạn README. Mọi kết quả đã được chạy lại và đối chiếu |
+| Claude (trợ lý AI của Anthropic) | Hỗ trợ viết, rà soát và tái cấu trúc code; soạn README. Mọi kết quả đã được chạy lại và đối chiếu |
 | Mermaid | Vẽ sơ đồ tư duy và lưu đồ ngay trong README (GitHub tự hiển thị) |
 | Markdown | Viết tài liệu |
 
-*(Nhóm : Chủ yếu dùng VS Code, quản lý với Github, công cụ họp nhóm: Discord và gặp nhau trực tiếp trên Giảng Đường.)*
+*(Nhóm bổ sung thêm: trình soạn thảo/IDE, quản lý phiên bản, công cụ họp nhóm... nếu có.)*
