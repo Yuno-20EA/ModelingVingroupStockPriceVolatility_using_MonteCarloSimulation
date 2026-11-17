@@ -1,0 +1,40 @@
+=== 1. CHẤT LƯỢNG DỮ LIỆU ===
+Số phiên: 996 (2022-11-16 -> 2026-11-16)
+Giá đóng cửa: min = 19,950, max = 256,100, toàn kỳ tăng 8.21 lần
+Khoảng trống > 4 ngày: 13 lần (lớn nhất 10 ngày; thường là nghỉ lễ/Tết)
+|log-return| lớn nhất: 7.26% | số phiên sát biên ±7%: 61
+Phiên lệch giữa '% thay đổi' của nguồn và giá tự tính: 0 (giá liên tục, không thấy dấu hiệu chưa điều chỉnh)
+
+=== 2. ƯỚC LƯỢNG THAM SỐ GBM ===
+Cửa sổ hiệu chỉnh: 2025-11-12 -> 2026-11-16 (250 log-return)
+μ̂ = 0.9832/năm (sai số chuẩn ±0.499) | σ̂ = 0.4968/năm
+
+=== 3. KIỂM ĐỊNH GIẢ THIẾT ===
+Độ lệch = -0.141 | độ nhọn dư = 0.393 | Jarque-Bera p = 0.296
+Ljung-Box trên r² (20 độ trễ): Q = 46.9, p = 0.000605
+
+=== 4. DỰ BÁO 60 PHIÊN TỚI (S0 = 247,800 VND, 10000 quỹ đạo) ===
+[Kịch bản μ lịch sử]  μ = 0.9832/năm
+  E[S_T]     MC = 313,231 | lý thuyết = 313,160
+  Trung vị   MC = 304,093 | lý thuyết = 304,093  (trùng theo cấu trúc do biến đối ngẫu, không phải bằng chứng kiểm chứng)
+  Khoảng 90%: [204,048, 453,190]
+  VaR95 = 17.66% | CVaR95 = 25.21%
+  P(lãi) = 79.8% | P(lỗ>10%) = 10.2% | P(lãi>20%) = 53.9%
+[Kịch bản μ = 0]  μ = 0.0000/năm
+  E[S_T]     MC = 247,857 | lý thuyết = 247,800
+  Trung vị   MC = 240,626 | lý thuyết = 240,626  (trùng theo cấu trúc do biến đối ngẫu, không phải bằng chứng kiểm chứng)
+  Khoảng 90%: [161,461, 358,605]
+  VaR95 = 34.84% | CVaR95 = 40.82%
+  P(lãi) = 45.0% | P(lỗ>10%) = 37.5% | P(lãi>20%) = 19.3%
+
+=== 5. BACKTEST CUỐN CHIẾU (dự báo trước 20 phiên, hiệu chỉnh 250 phiên) ===
+[Backtest, kịch bản μ ước lượng] 73 mốc
+  Độ phủ 90%: 80.8% (lý tưởng 90%) | độ phủ 50%: 57.5% (lý tưởng 50%)
+  Giá thực dưới dải 90%: 5.5% (lý tưởng 5%) | trên dải 90%: 13.7% (lý tưởng 5%)
+  MAPE của trung vị: 9.80%
+  KS test PIT~U(0,1): thống kê = 0.119, p = 0.234 (các mốc chồng lấn nên p-value chỉ mang tính tham khảo)
+[Backtest, kịch bản μ = 0] 73 mốc
+  Độ phủ 90%: 79.5% (lý tưởng 90%) | độ phủ 50%: 50.7% (lý tưởng 50%)
+  Giá thực dưới dải 90%: 0.0% (lý tưởng 5%) | trên dải 90%: 20.5% (lý tưởng 5%)
+  MAPE của trung vị: 9.81%
+  KS test PIT~U(0,1): thống kê = 0.216, p = 0.00177 (các mốc chồng lấn nên p-value chỉ mang tính tham khảo)
