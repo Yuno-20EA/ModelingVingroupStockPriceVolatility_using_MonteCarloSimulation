@@ -1,6 +1,7 @@
 # Mô hình hóa biến động ngẫu nhiên của cổ phiếu Vingroup (VIC) bằng Monte Carlo
 
-> Đề tài môn Mô Phỏng Toán. Bài tập học thuật, **không phải khuyến nghị đầu tư**. |
+> Đề tài môn Mô Phỏng Toán. Bài tập học thuật, **không phải khuyến nghị đầu tư**.
+
 ---
 
 ## Giới thiệu: bài toán – mô hình – dữ liệu – đầu ra
@@ -274,46 +275,56 @@ flowchart LR
 
 ## 8. Cấu trúc dự án & cách chạy
 
+### 8.1 Cấu trúc
+
 ```
-vic-monte-carlo/
-├── README.md              # tài liệu này
-├── TECH_STACK.md          # công nghệ và công cụ hỗ trợ
-├── requirements.txt
+ModelingVingroupStockPriceVolatility_using_MonteCarloSimulation/
+├── README.md                 # tài liệu này
+├── main.py                   # điểm vào: python main.py
+├── requirements.txt          # thư viện để CHẠY: numpy, pandas, matplotlib, scipy
+├── requirements-dev.txt      # thêm pytest để KIỂM THỬ
 ├── pytest.ini
-├── main.py                # điểm vào: python main.py
-├── data/raw/              # dữ liệu gốc (CSV Investing.com)
-├── vicmc/
-│   ├── config.py          # hằng số + tham số chạy
-│   ├── cli.py             # đọc tham số dòng lệnh
-│   ├── pipeline.py        # điều phối các bước (chỉ gọi, không tính)
-│   ├── data/
-│   │   ├── loader.py      # đọc & làm sạch CSV
-│   │   ├── quality.py     # kiểm tra chất lượng
-│   │   └── returns.py     # log-return
-│   ├── model/
-│   │   ├── estimation.py  # ước lượng μ, σ (MLE) + tham số trượt
-│   │   ├── simulation.py  # lõi Monte Carlo GBM
-│   │   └── scenarios.py   # kịch bản μ lịch sử / μ = 0
-│   ├── analysis/
-│   │   ├── diagnostics.py # kiểm định giả thiết
-│   │   ├── risk.py        # VaR, CVaR, xác suất
-│   │   └── backtest.py    # backtest cuốn chiếu + PIT
-│   ├── reporting/
-│   │   ├── tables.py      # ghi CSV
-│   │   └── summary.py     # dựng summary.txt
-│   └── plots/             # history · model_checks · forecast · validation
-├── tests/                 # 8 test: loader, estimation, simulation, risk, backtest
-└── outputs/
-    ├── figures/           # fig1 … fig6 (.png)
-    ├── tables/            # forecast_*.csv, backtest_*.csv
-    └── summary.txt        # toàn bộ số liệu
+├── .gitignore
+├── data/raw/                 # dữ liệu gốc (CSV Investing.com)
+├── vicmc/                    # mã nguồn, mỗi file một chức năng
+│   ├── config.py             # hằng số + tham số chạy
+│   ├── cli.py                # đọc tham số dòng lệnh
+│   ├── pipeline.py           # điều phối các bước (chỉ gọi, không tính)
+│   ├── data/                 # loader · quality · returns
+│   ├── model/                # estimation · simulation · scenarios
+│   ├── analysis/             # diagnostics · risk · backtest
+│   ├── reporting/            # tables (CSV) · summary (summary.txt)
+│   └── plots/                # history · model_checks · forecast · validation
+├── tests/                    # 8 test: loader, estimation, simulation, risk, backtest
+├── outputs/                  # kết quả do main.py sinh ra
+│   ├── figures/              # fig1 … fig6 (.png)
+│   ├── tables/               # forecast_*.csv, backtest_*.csv
+│   └── summary.txt           # toàn bộ số liệu
+└── docs/
+    └── TECH_STACK.md         # công nghệ và công cụ hỗ trợ
 ```
 
+### 8.2 Cài đặt & chạy bằng một lệnh
+
+Yêu cầu: **Python 3.10 trở lên**. Mở terminal tại thư mục dự án rồi chạy **một** dòng tương ứng hệ điều hành:
+
+| Hệ điều hành | Lệnh |
+|---|---|
+| macOS / Linux | `python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt && python main.py` |
+| Windows (cmd) | `python -m venv .venv && .venv\Scripts\activate && pip install -r requirements.txt && python main.py` |
+| Windows (PowerShell) | `python -m venv .venv; .venv\Scripts\Activate.ps1; pip install -r requirements.txt; python main.py` |
+| Không dùng môi trường ảo | `pip install -r requirements.txt && python main.py` |
+
+Chỉ muốn cài thư viện bằng đúng một lệnh: `pip install numpy pandas matplotlib scipy`.
+
+Kết quả ghi vào `outputs/` (6 hình, 4 bảng CSV và `summary.txt`); tóm tắt cũng in ra màn hình.
+
+Kiểm thử: `pip install -r requirements-dev.txt && python -m pytest` (8 test, khoảng 2 giây).
+
+### 8.3 Tham số tùy chọn
+
 ```bash
-pip install -r requirements.txt
-python main.py                                        # chạy toàn bộ, ghi vào outputs/
 python main.py --horizon 40 --paths 20000 --calib-days 500
-python -m pytest                                      # chạy kiểm thử
 ```
 
 | Tham số | Mặc định | Ý nghĩa |
@@ -346,4 +357,4 @@ python -m pytest                                      # chạy kiểm thử
 | Sơ đồ & tài liệu | Mermaid, Markdown |
 | Hỗ trợ | Trợ lý AI Claude (hỗ trợ viết và rà soát code, tài liệu) |
 
-Chi tiết và phiên bản: xem [`TECH_STACK.md`](TECH_STACK.md).
+Chi tiết và phiên bản: xem [`docs/TECH_STACK.md`](docs/TECH_STACK.md).

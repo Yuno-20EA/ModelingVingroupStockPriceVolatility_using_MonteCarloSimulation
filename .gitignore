@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Môi trường ảo
+.venv/
+venv/
+
+# Công cụ / hệ điều hành
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

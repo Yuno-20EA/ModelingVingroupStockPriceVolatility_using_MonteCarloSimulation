@@ -3,7 +3,6 @@ from pathlib import Path
 
 import matplotlib
 
-matplotlib.use("Agg")   # vẽ ra file, không cần giao diện
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 
@@ -13,9 +12,9 @@ def vnd_axis(ax, axis: str = "y") -> None:
     fmt = FuncFormatter(lambda v, _: f"{v:,.0f}")
     (ax.yaxis if axis == "y" else ax.xaxis).set_major_formatter(fmt)
 
-
 def save_fig(fig, path: Path) -> None:
     fig.tight_layout()
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=150)
+    plt.show()    # Bật cửa sổ hình ảnh lên màn hình
     plt.close(fig)
