@@ -1,4 +1,4 @@
-"""Biểu đồ: history (dữ liệu), model_checks (kiểm định), forecast (dự báo), validation (backtest)."""
+# Module quản lý các chức năng vẽ biểu đồ
 from .common import show_plots
 from .forecast import plot_fan, plot_terminal_compare
 from .history import plot_history, plot_rolling_params

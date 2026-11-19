@@ -1,4 +1,4 @@
-"""Lõi Monte Carlo: sinh quỹ đạo giá GBM."""
+# Lõi mô phỏng Monte Carlo sinh quỹ đạo giá hình học Brown (GBM)
 import numpy as np
 import pandas as pd
 
@@ -7,10 +7,7 @@ from ..config import DT
 
 def simulate_gbm(s0: float, mu: float, sigma: float, horizon: int,
                  n_paths: int, rng: np.random.Generator) -> np.ndarray:
-    """Nghiệm chính xác:  S_{t+dt} = S_t · exp[(μ − σ²/2)dt + σ√dt · Z],  Z ~ N(0,1).
-
-    Dùng biến đối ngẫu (mỗi Z kèm −Z). Trả về mảng (n_paths, horizon+1); cột 0 là S0.
-    """
+    # Sinh quỹ đạo GBM theo nghiệm giải tích chính xác, kết hợp biến đối ngẫu (antithetic variates)
     if n_paths % 2:
         raise ValueError("n_paths phải là số chẵn")
     z = rng.standard_normal((n_paths // 2, horizon))
@@ -21,5 +18,5 @@ def simulate_gbm(s0: float, mu: float, sigma: float, horizon: int,
 
 
 def future_dates(last_date: pd.Timestamp, horizon: int) -> pd.DatetimeIndex:
-    """Các ngày thứ 2–6 kế tiếp (chưa trừ ngày lễ Việt Nam)."""
+    # Tạo chuỗi ngày làm việc trong tương lai (thứ 2 - thứ 6)
     return pd.bdate_range(last_date + pd.Timedelta(days=1), periods=horizon)

@@ -7,7 +7,7 @@ from vicmc.model.simulation import simulate_gbm
 
 
 def test_mean_and_tail_quantiles_match_lognormal_theory():
-    """Không dùng trung vị: với biến đối ngẫu nó trùng lý thuyết theo cấu trúc (test vô nghĩa)."""
+    # Kiểm tra kỳ vọng và phân vị đuôi của Monte Carlo khớp với phân phối log-chuẩn lý thuyết
     mu, sigma, s0, h = 0.2, 0.4, 100.0, 60
     T = h * DT
     m = risk_metrics(simulate_gbm(s0, mu, sigma, h, 200_000, np.random.default_rng(0)), mu, sigma)

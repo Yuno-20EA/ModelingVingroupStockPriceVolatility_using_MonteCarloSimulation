@@ -1,5 +1,4 @@
-"""Điều phối các bước: dữ liệu -> ước lượng -> kiểm định -> mô phỏng -> rủi ro -> backtest -> báo cáo.
-Chỉ gọi các module, không tự tính toán."""
+# Điều phối luồng xử lý: nạp dữ liệu -> ước lượng -> mô phỏng -> backtest -> báo cáo
 from . import plots
 from .analysis.backtest import rolling_backtest, summarize_backtest
 from .analysis.diagnostics import run_diagnostics

@@ -1,4 +1,4 @@
-"""Biểu đồ kiểm định giả thiết GBM."""
+# Biểu đồ kiểm định các giả thiết mô hình GBM
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -10,6 +10,7 @@ from .common import save_fig
 
 
 def plot_diagnostics(r: np.ndarray, d: Diagnostics, out: Path) -> None:
+    # Trực quan hóa phân phối log-return, biểu đồ Q-Q và hàm tự tương quan ACF của r²
     fig, ax = plt.subplots(1, 3, figsize=(15, 4.5))
     ax[0].hist(r, bins=60, density=True, alpha=0.7, label="Dữ liệu")
     x = np.linspace(r.min(), r.max(), 400)

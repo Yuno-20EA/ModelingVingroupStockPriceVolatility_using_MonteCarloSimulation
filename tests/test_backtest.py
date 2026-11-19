@@ -5,7 +5,7 @@ from vicmc.analysis.backtest import rolling_backtest
 
 
 def test_no_look_ahead():
-    """Đổi giá SAU mốc i thì dự báo tại các mốc ≤ i không được đổi."""
+    # Kiểm tra không nhìn trước tương lai: đổi giá sau mốc i không làm đổi dự báo tại các mốc <= i
     rng = np.random.default_rng(5)
     prices = pd.Series(100 * np.exp(np.cumsum(rng.normal(0, 0.02, 400))), index=pd.bdate_range("2020-01-01", periods=400))
     kw = dict(calib_days=100, horizon=20, step=10, n_paths=500, drift_mode="estimated", seed=1)

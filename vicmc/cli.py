@@ -1,4 +1,4 @@
-"""Đọc tham số dòng lệnh thành Config."""
+# Phân tích tham số dòng lệnh thành Config
 import argparse
 from pathlib import Path
 
@@ -21,6 +21,6 @@ def parse_args(argv: list[str] | None = None) -> Config:
     ap.add_argument("--no-show", action="store_false", dest="show_plots", help="không hiện cửa sổ biểu đồ")
     a = ap.parse_args(argv)
     return Config(data_path=a.data, data_start=a.start, data_end=a.end, calib_days=a.calib_days,
-                  horizon=a.horizon, n_paths=a.paths + a.paths % 2,   # số chẵn cho biến đối ngẫu
+                  horizon=a.horizon, n_paths=a.paths + a.paths % 2,   # Đảm bảo số chẵn cho biến đối ngẫu
                   seed=a.seed, bt_horizon=a.bt_horizon, bt_step=a.bt_step, out_dir=a.out,
                   show_plots=a.show_plots)

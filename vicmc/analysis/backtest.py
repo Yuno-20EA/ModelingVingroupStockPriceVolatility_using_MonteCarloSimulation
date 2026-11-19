@@ -1,4 +1,4 @@
-"""Backtest cuốn chiếu: dự báo từ quá khứ rồi so với giá thực."""
+# Kiểm định mô hình bằng phương pháp Backtest cuốn chiếu (Rolling Backtest)
 from dataclasses import dataclass
 
 import numpy as np
@@ -12,19 +12,18 @@ from ..model.simulation import simulate_gbm
 @dataclass(frozen=True)
 class BacktestSummary:
     n_origins: int
-    coverage_90: float   # tỷ lệ giá thực nằm trong dải 90% (lý tưởng 0.90)
-    coverage_50: float   # (lý tưởng 0.50)
-    below_q05: float     # giá thực dưới dải (lý tưởng 0.05)
-    above_q95: float     # giá thực trên dải (lý tưởng 0.05)
-    mape_median: float
-    ks_stat: float       # PIT phải ~ U(0,1)
-    ks_p: float
+    coverage_90: float   # Tỷ lệ giá thực tế nằm trong khoảng 90% (lý tưởng: 90%)
+    coverage_50: float   # Tỷ lệ giá thực tế nằm trong khoảng 50% (lý tưởng: 50%)
+    below_q05: float     # Tỷ lệ giá thực tế thấp hơn phân vị 5% (lý tưởng: 5%)
+    above_q95: float     # Tỷ lệ giá thực tế vượt phân vị 95% (lý tưởng: 5%)
+    mape_median: float   # Sai số MAPE giữa trung vị dự báo và giá thực tế
+    ks_stat: float       # Thống kê kiểm định Kolmogorov-Smirnov trên PIT
+    ks_p: float          # p-value kiểm định phân phối đều PIT ~ U(0,1)
 
 
 def rolling_backtest(prices: pd.Series, calib_days: int, horizon: int, step: int,
                      n_paths: int, drift_mode: str, seed: int) -> pd.DataFrame:
-    """Mỗi mốc i chỉ dùng dữ liệu đến i (không nhìn trước tương lai) để dự báo giá ở i+horizon.
-    drift_mode: 'estimated' (dùng μ̂) hoặc 'zero' (μ = 0)."""
+    # Dự báo trượt out-of-sample tại từng mốc i và so sánh với giá thực tế tại i + horizon
     if drift_mode not in ("estimated", "zero"):
         raise ValueError("drift_mode phải là 'estimated' hoặc 'zero'")
     rng = np.random.default_rng(seed)
@@ -43,6 +42,7 @@ def rolling_backtest(prices: pd.Series, calib_days: int, horizon: int, step: int
 
 
 def summarize_backtest(bt: pd.DataFrame) -> BacktestSummary:
+    # Tính các chỉ số đánh giá độ chuẩn xác dự báo và kiểm định PIT
     ks = stats.kstest(bt["pit"], "uniform")
     return BacktestSummary(
         len(bt), float(((bt.actual >= bt.q05) & (bt.actual <= bt.q95)).mean()),

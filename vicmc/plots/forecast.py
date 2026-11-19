@@ -1,4 +1,4 @@
-"""Biểu đồ dự báo: fan chart và phân phối giá cuối kỳ."""
+# Biểu đồ dự báo: fan chart và phân phối giá cuối kỳ
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -11,7 +11,7 @@ from .common import save_fig, vnd_axis
 
 def plot_fan(prices: pd.Series, paths: np.ndarray, future_idx: pd.DatetimeIndex,
              label: str, hist_days: int, out: Path) -> None:
-    """Lịch sử + 30 quỹ đạo mẫu + dải phân vị 50% / 90%."""
+    # Vẽ lịch sử giá, 30 quỹ đạo mẫu và các dải phân vị 50% / 90%
     qs = quantile_paths(paths)
     idx = pd.DatetimeIndex([prices.index[-1]]).append(future_idx)
     fig, ax = plt.subplots(figsize=(11, 6))
@@ -28,7 +28,7 @@ def plot_fan(prices: pd.Series, paths: np.ndarray, future_idx: pd.DatetimeIndex,
 
 
 def plot_terminal_compare(paths_by_label: dict[str, np.ndarray], horizon: int, out: Path) -> None:
-    """Chồng phân phối giá cuối kỳ của các kịch bản (đường đứt = trung vị)."""
+    # So sánh phân phối giá cuối kỳ giữa các kịch bản (đường đứt: trung vị)
     fig, ax = plt.subplots(figsize=(10, 5.5))
     for (label, paths), color in zip(paths_by_label.items(), ["tab:blue", "tab:orange", "tab:green"]):
         ax.hist(paths[:, -1], bins=80, density=True, histtype="step", lw=2, color=color, label=label)

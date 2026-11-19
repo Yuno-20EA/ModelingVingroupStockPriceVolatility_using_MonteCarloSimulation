@@ -4,7 +4,7 @@ from vicmc.analysis.risk import risk_metrics
 
 
 def test_var_cvar_on_known_terminal_prices():
-    """100 giá cuối kỳ 1..100 với S0 = 100 -> lợi suất −0.99..0."""
+    # Kiểm tra VaR và CVaR trên phân phối giá xác định (1..100) với S0 = 100
     st = np.arange(1.0, 101.0)
     paths = np.column_stack([np.full(100, 100.0), st])
     m = risk_metrics(paths, 0.0, 0.3)

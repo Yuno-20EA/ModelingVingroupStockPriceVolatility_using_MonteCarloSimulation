@@ -1,4 +1,4 @@
-"""Dựng báo cáo văn bản summary.txt (chỉ định dạng, không tính toán)."""
+# Định dạng kết quả thành báo cáo văn bản tổng kết
 from ..analysis.backtest import BacktestSummary
 from ..analysis.diagnostics import Diagnostics
 from ..analysis.risk import RiskMetrics
@@ -9,6 +9,7 @@ from ..model.scenarios import Scenario
 
 
 def quality_lines(q: DataQuality) -> list[str]:
+    # Định dạng phần 1: Chất lượng dữ liệu
     lines = ["=== 1. CHẤT LƯỢNG DỮ LIỆU ===",
              f"Số phiên: {q.n_obs} ({q.start.date()} -> {q.end.date()})",
              f"Giá đóng cửa: min = {q.min_close:,.0f}, max = {q.max_close:,.0f}, toàn kỳ tăng {q.total_growth_x:.2f} lần",
@@ -21,6 +22,7 @@ def quality_lines(q: DataQuality) -> list[str]:
 
 
 def params_lines(p: GBMParams, d: Diagnostics) -> list[str]:
+    # Định dạng phần 2 & 3: Tham số mô hình và kiểm định giả thiết
     return ["=== 2. ƯỚC LƯỢNG THAM SỐ GBM ===",
             f"Cửa sổ hiệu chỉnh: {p.start.date()} -> {p.end.date()} ({p.n_returns} log-return)",
             f"μ̂ = {p.mu:.4f}/năm (sai số chuẩn ±{p.se_mu:.3f}) | σ̂ = {p.sigma:.4f}/năm", "",
@@ -30,6 +32,7 @@ def params_lines(p: GBMParams, d: Diagnostics) -> list[str]:
 
 
 def forecast_lines(cfg: Config, s0: float, rows: list[tuple[Scenario, RiskMetrics]]) -> list[str]:
+    # Định dạng phần 4: Kết quả dự báo theo các kịch bản
     lines = [f"=== 4. DỰ BÁO {cfg.horizon} PHIÊN TỚI (S0 = {s0:,.0f} VND, {cfg.n_paths} quỹ đạo) ==="]
     for sc, m in rows:
         lines += [f"[Kịch bản {sc.name}]  μ = {sc.mu:.4f}/năm",
@@ -43,6 +46,7 @@ def forecast_lines(cfg: Config, s0: float, rows: list[tuple[Scenario, RiskMetric
 
 
 def backtest_lines(cfg: Config, results: dict[str, BacktestSummary]) -> list[str]:
+    # Định dạng phần 5: Đánh giá hiệu chuẩn qua Backtest
     lines = [f"=== 5. BACKTEST CUỐN CHIẾU (dự báo trước {cfg.bt_horizon} phiên, hiệu chỉnh {cfg.calib_days} phiên) ==="]
     for name, s in results.items():
         lines += [f"[Backtest, kịch bản {name}] {s.n_origins} mốc",

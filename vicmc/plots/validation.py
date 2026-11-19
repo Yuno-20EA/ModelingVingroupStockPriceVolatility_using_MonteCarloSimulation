@@ -1,4 +1,4 @@
-"""Biểu đồ kết quả backtest."""
+# Biểu đồ kết quả kiểm định mô hình (Backtest)
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -8,7 +8,7 @@ from .common import save_fig, vnd_axis
 
 
 def plot_backtest(bt_by_label: dict[str, pd.DataFrame], horizon: int, out: Path) -> None:
-    """Hàng trên: giá thực vs dải 90%. Hàng dưới: histogram PIT (đều = hiệu chuẩn tốt, chữ U = đánh giá thấp rủi ro)."""
+    # Vẽ so sánh giá thực tế vs dải dự báo 90% (hàng trên) và phân phối PIT (hàng dưới)
     fig, ax = plt.subplots(2, len(bt_by_label), figsize=(7 * len(bt_by_label), 9), squeeze=False)
     for j, (label, bt) in enumerate(bt_by_label.items()):
         top, bottom = ax[0, j], ax[1, j]

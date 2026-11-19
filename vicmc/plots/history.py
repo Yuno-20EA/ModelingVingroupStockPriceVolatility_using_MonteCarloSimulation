@@ -1,4 +1,4 @@
-"""Biểu đồ dữ liệu lịch sử và tham số trượt."""
+# Biểu đồ lịch sử giá đóng cửa và tham số trượt
 from pathlib import Path
 
 import matplotlib.pyplot as plt
@@ -9,9 +9,10 @@ from .common import save_fig, vnd_axis
 
 
 def plot_history(prices: pd.Series, calib_start: pd.Timestamp, out: Path) -> None:
+    # Vẽ chuỗi giá đóng cửa (thang log) và chuỗi log-returns hàng ngày
     r = np.log(prices).diff()
     fig, ax = plt.subplots(2, 1, figsize=(11, 7), sharex=True, gridspec_kw={"height_ratios": [2, 1]})
-    ax[0].semilogy(prices.index, prices.values, lw=1.2)   # thang log: hợp với quá trình nhân tính
+    ax[0].semilogy(prices.index, prices.values, lw=1.2)
     ax[0].axvspan(calib_start, prices.index[-1], color="orange", alpha=0.15, label="Cửa sổ hiệu chỉnh")
     ax[0].set_title("Giá đóng cửa VIC (thang log) và cửa sổ ước lượng tham số")
     ax[0].set_ylabel("Giá đóng cửa (VND)"); vnd_axis(ax[0]); ax[0].legend(); ax[0].grid(alpha=0.3, which="both")
@@ -21,6 +22,7 @@ def plot_history(prices: pd.Series, calib_start: pd.Timestamp, out: Path) -> Non
 
 
 def plot_rolling_params(roll: pd.DataFrame, window: int, out: Path) -> None:
+    # Vẽ độ trôi μ̂ và độ biến động σ̂ trên cửa sổ trượt
     fig, ax = plt.subplots(2, 1, figsize=(11, 7), sharex=True)
     for a, col, color, title in ((ax[0], "mu", "tab:green", "Độ trôi μ̂"), (ax[1], "sigma", "tab:purple", "Độ biến động σ̂")):
         a.plot(roll.index, roll[col] * 100, color=color)
