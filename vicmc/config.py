@@ -20,3 +20,4 @@ class Config:
     bt_step: int = 10                # backtest: cách nhau 10 phiên
     bt_paths: int = 2_000            # backtest: số quỹ đạo mỗi mốc
     out_dir: Path = ROOT / "outputs"
+    show_plots: bool = True          # True = hiện đồng thời toàn bộ figure qua plt.show()

@@ -60,5 +60,11 @@ def run(cfg: Config) -> list[str]:
     lines = (summary.quality_lines(check_quality(df)) + summary.params_lines(params, diag)
              + summary.forecast_lines(cfg, s0, risks)
              + summary.backtest_lines(cfg, {k: summarize_backtest(v) for k, v in bt.items()}))
-    (cfg.out_dir / "summary.txt").write_text("\n".join(lines), encoding="utf-8")
+    summary_text = "\n".join(lines)
+    (cfg.out_dir / "summary.txt").write_text(summary_text, encoding="utf-8")
+    print("\n" + summary_text + "\n")
+
+    if cfg.show_plots:
+        plots.show_plots()
+
     return lines

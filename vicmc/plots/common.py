@@ -16,5 +16,10 @@ def save_fig(fig, path: Path) -> None:
     fig.tight_layout()
     path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(path, dpi=150)
-    plt.show()    # Bật cửa sổ hình ảnh lên màn hình
-    plt.close(fig)
+    if getattr(fig.canvas, "manager", None):
+        fig.canvas.manager.set_window_title(path.stem)
+
+def show_plots() -> None:
+    """Hiển thị đồng thời toàn bộ 6 figure đã vẽ lên màn hình."""
+    plt.show()
+    plt.close("all")

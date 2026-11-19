@@ -109,7 +109,7 @@ flowchart LR
 | 3 | $\hat\sigma=\dfrac{s_r}{\sqrt{\Delta t}},\quad \hat\mu=\dfrac{\bar r}{\Delta t}+\tfrac12\hat\sigma^2$ | **Ước lượng μ, σ** từ dữ liệu | $\bar r$, $s_r$ trung bình và độ lệch chuẩn mẫu của log-return ngày |
 | 4 | $\text{SE}(\hat\mu)\approx\sigma/\sqrt T$ | Độ chính xác của $\hat\mu$ | $T$ độ dài dữ liệu (năm). Với $T\approx1$ thì SE rất lớn |
 | 5 | $\mathbb E[g(S_T)]\approx\frac1N\sum_i g\big(S_T^{(i)}\big)$ | **Monte Carlo:** xấp xỉ mọi kỳ vọng | $N=10.000$ quỹ đạo; sai số $\sim1/\sqrt N$ |
-| 6 | $\mathrm{VaR}_{95}=-q_{5\%}(R),\ \ \mathrm{CVaR}_{95}=-\mathbb E[R\mid R\le q_{5\%}]$ | **Rủi ro** | $R=S_T/S_0-1$ lợi suất cả kỳ; $q_{5\%}$ phân vị 5% |
+| 6 | $\mathrm{VaR} _ {95}=-q _ {0.05}(R),\quad \mathrm{CVaR} _ {95}=-\mathbb E[R\mid R\le q _ {0.05}]$ | **Rủi ro** | $R=S_T/S_0-1$ lợi suất cả kỳ; $q _ {0.05}$ phân vị 5% |
 | 7 | $\text{PIT}=\mathbb P_{\text{MC}}(S_T<S_{\text{thực}})\sim U(0,1)$ | **Kiểm tra dự báo** ở backtest | Nếu mô hình đúng, PIT phân phối đều; chữ U = đánh giá thấp rủi ro |
 
 Kiểm chứng code: $\mathbb E[S_T]=S_0e^{\mu T}$ và phân vị 5%/95% log-chuẩn phải khớp Monte Carlo (test trong `tests/test_simulation.py`). Trung vị thì **không** phải bằng chứng, vì biến đối ngẫu (mỗi $Z$ kèm $-Z$) làm nó trùng lý thuyết theo cấu trúc.
@@ -341,9 +341,10 @@ python main.py --horizon 40 --paths 20000 --calib-days 500
 
 | STT | Họ tên | MSSV | Vai trò |
 |---|---|---|---|
-| 1 | *(dev tự điền)* | | |
-| 2 | *(dev tự điền)* | | |
-| 3 | *(dev tự điền)* | | |
+| 1 | Nguyễn Hoàng Hải | 25112038 | Thành Viên |
+| 2 | Trần Hà Nguyên | 25112092 | Thành Viên |
+| 3 | Trần Đức Anh Minh | 25112085 | Thành Viên |
+| 4 | Nguyễn Triều Nguyên | 25112091 | Nhóm Trưởng |
 
 ---
 
@@ -351,10 +352,10 @@ python main.py --horizon 40 --paths 20000 --calib-days 500
 
 | Nhóm | Sử dụng |
 |---|---|
-| Ngôn ngữ | Python 3.10+ (chạy thử trên 3.12) |
+| Ngôn ngữ | Python 3.14 |
 | Thư viện | NumPy, pandas, SciPy, Matplotlib; pytest để kiểm thử |
-| Dữ liệu | Investing.com (CSV lịch sử VIC) |
+| Dữ liệu | Investing.com (CSV lịch sử VIC) cũng như các tài liệu được tham khảo trên SSI.com và các sàn giao dịch chính thống |
 | Sơ đồ & tài liệu | Mermaid, Markdown |
-| Hỗ trợ | Trợ lý AI Claude (hỗ trợ viết và rà soát code, tài liệu) |
+| Hỗ trợ | Trợ lý AI Claude và Antigrativy (hỗ trợ viết và rà soát code, tài liệu) |
 
 Chi tiết và phiên bản: xem [`docs/TECH_STACK.md`](docs/TECH_STACK.md).
